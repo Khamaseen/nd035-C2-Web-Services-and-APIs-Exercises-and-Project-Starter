@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +59,8 @@ class CarController {
      * @return all information for the requested vehicle
      */
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Car with ID <id> not found")})
     Resource<Car> get(@PathVariable Long id) {
         /**
          * TODO: Use the `findById` method from the Car Service to get car information.
@@ -90,6 +94,8 @@ class CarController {
      * @return response that the vehicle was updated in the system
      */
     @PutMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "")})
     ResponseEntity<?> put(@PathVariable Long id, @Valid @RequestBody Car car) {
         /**
          * TODO: Set the id of the input car object to the `id` input.
@@ -108,6 +114,8 @@ class CarController {
      * @return response that the related vehicle is no longer in the system
      */
     @DeleteMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "Car with ID <id> not found")})
     ResponseEntity<?> delete(@PathVariable Long id) {
         /**
          * TODO: Use the Car Service to delete the requested vehicle.

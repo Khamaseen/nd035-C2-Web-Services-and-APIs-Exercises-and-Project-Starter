@@ -96,6 +96,24 @@ public class CarControllerTest {
          *   the whole list of vehicles. This should utilize the car from `getCar()`
          *   below (the vehicle will be the first in the list).
          */
+        Car car = getCar();
+        mvc.perform(get("/cars"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.carlist[0].id").value(car.getId()))
+                .andExpect(jsonPath("$.carlist[0].condition").value(car.getCondition()))
+                .andExpect(jsonPath("$.carlist[0].details.body").value(car.getDetails().getBody()))
+                .andExpect(jsonPath("$.carlist[0].details.model").value(car.getDetails().getModel()))
+                .andExpect(jsonPath("$.carlist[0].details.engine").value(car.getDetails().getEngine()))
+                .andExpect(jsonPath("$.carlist[0].details.modelYear").value(car.getDetails().getModelYear()))
+                .andExpect(jsonPath("$.carlist[0].details.externalColor").value(car.getDetails().getExternalColor()))
+                .andExpect(jsonPath("$.carlist[0].details.mileage").value(car.getDetails().getMileage()))
+                .andExpect(jsonPath("$.carlist[0].details.numberOfDoors").value(car.getDetails().getNumberOfDoors()))
+                .andExpect(jsonPath("$.carlist[0].details.modelYear").value(car.getDetails().getModelYear()))
+                .andExpect(jsonPath("$.carlist[0].details.productionYear").value(car.getDetails().getProductionYear()))
+                .andExpect(jsonPath("$.carlist[0].details.fuelType").value(car.getDetails().getFuelType()))
+                .andExpect(jsonPath("$.carlist[0].details.manufacturer.code").value(car.getDetails().getManufacturer().getCode()))
+                .andExpect(jsonPath("$.carlist[0].details.manufacturer.name").value(car.getDetails().getManufacturer().getName()));
 
     }
 

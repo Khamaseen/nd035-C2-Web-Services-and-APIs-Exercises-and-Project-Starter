@@ -13,11 +13,9 @@ import java.math.BigDecimal;
 public class Price {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long vehicleId;
     private String currency;
     private BigDecimal price;
-    private Long vehicleId;
 
     public Price() {
     }

@@ -56,13 +56,15 @@ public class CarControllerTest {
     @MockBean
     private MapsClient mapsClient;
 
+    private Long carIdMock = 1L;
+
     /**
      * Creates pre-requisites for testing, such as an example car.
      */
     @Before
     public void setup() {
         Car car = getCar();
-        car.setId(1L);
+        car.setId(this.carIdMock);
         given(carService.save(any())).willReturn(car);
         given(carService.findById(any())).willReturn(car);
         given(carService.list()).willReturn(Collections.singletonList(car));
@@ -89,11 +91,6 @@ public class CarControllerTest {
      */
     @Test
     public void listCars() throws Exception {
-        /**
-         * TODO: Add a test to check that the `get` method works by calling
-         *   the whole list of vehicles. This should utilize the car from `getCar()`
-         *   below (the vehicle will be the first in the list).
-         */
         Car car = getCar();
         mvc.perform(get("/cars"))
                 .andExpect(status().isOk())
@@ -119,10 +116,6 @@ public class CarControllerTest {
      */
     @Test
     public void findCar() throws Exception {
-        /**
-         * TODO: Add a test to check that the `get` method works by calling
-         *   a vehicle by ID. This should utilize the car from `getCar()` below.
-         */
         Car car = getCar();
         mvc.perform(get("/cars/1"))
                 .andExpect(status().isOk())
@@ -148,16 +141,8 @@ public class CarControllerTest {
      */
     @Test
     public void deleteCar() throws Exception {
-        /**
-         * TODO: Add a test to check whether a vehicle is appropriately deleted
-         *   when the `delete` method is called from the Car Controller. This
-         *   should utilize the car from `getCar()` below.
-         *
-         *   ?? This should utilize 'getCar()', seems off because of the @Before method.
-         */
-
-        mvc.perform(delete("/cars/2")).andExpect(status().isNoContent());
-        Mockito.verify(carService, times(1)).delete(2L);
+        mvc.perform(delete("/cars/1")).andExpect(status().isNoContent());
+        Mockito.verify(carService, times(1)).delete(this.carIdMock);
     }
 
     /**
